@@ -12,9 +12,6 @@ Stocks: Tesla (TSLA), Toyota (TM), Honda (HMC), BMW (BMWKY), Geely (GELHY). Wind
 
 **2. Rebalancing didn't make more money, it made a smoother ride.** An equal-weight portfolio reset every January returned 23.9% a year. Leaving it alone (buy-and-hold) returned 29.4%, because Tesla's weight was allowed to grow. But buy-and-hold fell 71% peak to trough by early 2023, versus 39% for the rebalanced version, and its volatility was 43% versus 27%. Per unit of risk, rebalancing won (0.87 vs 0.68). Without Tesla, the rebalanced portfolio returned only 13.0%.
 
-![Growth of $10,000](images/1_growth.png)
-![Drawdowns](images/2_drawdown.png)
-
 **3. Optimization did not beat equal weight out of sample.** Every January from 2014 on, I estimated means and covariances from only the previous three years, solved for the minimum-variance and maximum-Sharpe portfolios (long only, max 40% in one stock), and held them for the year. Results for 2014 to Feb 2026:
 
 | Strategy | CAGR | Volatility | Return / risk | Max drawdown | Avg yearly turnover |
@@ -26,21 +23,15 @@ Stocks: Tesla (TSLA), Toyota (TM), Honda (HMC), BMW (BMWKY), Geely (GELHY). Wind
 
 Max-Sharpe basically tied equal weight on return per unit of risk, but with twice the trading and a deeper drawdown, so after transaction costs it would likely lose. Min-variance kept cutting Tesla (it was the most volatile stock) and missed most of the gains. This lines up with the academic finding that 1/N is very hard to beat once estimation error is real.
 
-![Out-of-sample comparison](images/3_out_of_sample.png)
-
 ## How it works
 
-- `R/portfolio_engine.R` does everything: loads prices, computes simple (not log) returns, runs a portfolio simulator where holdings drift daily and reset each January, solves the optimizations as quadratic programs with `quadprog`, and exports long-format CSVs for Tableau. It also cross-checks my simulator against `PerformanceAnalytics::Return.portfolio`, and if `quantmod` is installed and you're online it adds SPY as a market benchmark (my run was without it).
-- `python_check/` is an independent re-implementation in Python using the same solver. I ran both: every exported number matches R to within 0.00000002, and the walk-forward weights match exactly. That's how I know the R code does what I think it does.
+- `R/portfolio_engine.R` does everything: loads prices, computes simple (not log) returns, runs a portfolio simulator where holdings drift daily and reset each January, solves the optimizations as quadratic programs with `quadprog`, and exports long-format CSVs for Tableau. It also checks my own rebalancing simulator against `PerformanceAnalytics::Return.portfolio` and prints the gap between them, and if `quantmod` is installed and you're online it adds SPY as a market benchmark (my run was without it).
 - `tableau/Auto_Stock_Risk_Engine.twbx` is the packaged Tableau workbook, built on the CSVs the R script exports. Open it in Tableau Desktop or Tableau Public (free); the data is bundled inside.
 
 Run it:
 
 ```
-Rscript R/portfolio_engine.R                 # writes tableau/*.csv and outputs/results_summary.csv
-pip install -r python_check/requirements.txt
-python python_check/validate.py              # optional cross-check
-python python_check/export_tableau.py        # optional: rebuild every CSV in python_check/mirror/
+Rscript R/portfolio_engine.R      # writes tableau/*.csv and outputs/results_summary.csv
 ```
 
 ## Tableau dashboards

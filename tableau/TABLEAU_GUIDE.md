@@ -1,6 +1,6 @@
 # Tableau build guide
 
-All files in this folder are long format (one row per date per series), so every chart is a drag-and-drop with `Series` on Color. The R script regenerates them; the copies here came from the Python check and should match.
+All files in this folder are long format (one row per date per series), so every chart is a drag-and-drop with `Series` on Color. The R script writes them; the workbook in this folder is built on exactly these files.
 
 | File | What it holds |
 |---|---|
