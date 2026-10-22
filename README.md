@@ -14,6 +14,8 @@ Stocks: Tesla (TSLA), Toyota (TM), Honda (HMC), BMW (BMWKY), Geely (GELHY). Wind
 
 **2. Rebalancing didn't make more money, it made a smoother ride.** An equal-weight portfolio reset every January returned 23.9% a year. Leaving it alone (buy-and-hold) returned 29.4%, because Tesla's weight was allowed to grow. But buy-and-hold fell 71% peak to trough by early 2023, versus 39% for the rebalanced version, and its volatility was 43% versus 27%. Per unit of risk, rebalancing won (0.87 vs 0.68). Without Tesla, the rebalanced portfolio returned only 13.0%.
 
+![Rebalancing vs buy-and-hold dashboard](images/1_rebalancing.png)
+
 **3. Optimization did not beat equal weight out of sample.** Every January from 2014 on, I estimated means and covariances from only the previous three years, solved for the minimum-variance and maximum-Sharpe portfolios (long only, max 40% in one stock), and held them for the year. Results for 2014 to Feb 2026:
 
 | Strategy | CAGR | Volatility | Return / risk | Max drawdown | Avg yearly turnover |
@@ -24,6 +26,8 @@ Stocks: Tesla (TSLA), Toyota (TM), Honda (HMC), BMW (BMWKY), Geely (GELHY). Wind
 | Equal weight, buy & hold | 21.5% | 39.8% | 0.54 | -66% | 0% |
 
 Max-Sharpe basically tied equal weight on return per unit of risk, but with twice the trading and a deeper drawdown, so after transaction costs it would likely lose. Min-variance kept cutting Tesla (it was the most volatile stock) and missed most of the gains. This lines up with the academic finding that 1/N is very hard to beat once estimation error is real.
+
+![Optimization vs equal weight dashboard](images/2_optimization.png)
 
 ## How it works
 
@@ -43,6 +47,8 @@ Live on [Tableau Public](https://public.tableau.com/app/profile/venkata.bommiset
 1. **Rebalancing vs Buy-and-Hold:** growth of $10,000 on a log scale plus the drawdown chart, so you can see buy-and-hold pulling ahead in 2020 and then giving most of it back in 2022.
 2. **Optimization vs Equal Weight:** out-of-sample growth of all four strategies, return per unit of risk, worst drawdown, and the weights each optimizer picked every January (the max-Sharpe weights jump around a lot, min-variance mostly avoids Tesla).
 3. **Stock Risk Profile:** return vs risk for each stock, the correlation heatmap, and 1-year rolling correlations (Toyota and Honda stay tied together, Tesla stays on its own).
+
+![Stock risk profile dashboard](images/3_stock_risk.png)
 
 ## Limitations (read before trusting any number)
 
