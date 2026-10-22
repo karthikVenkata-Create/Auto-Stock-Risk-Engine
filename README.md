@@ -2,6 +2,8 @@
 
 **Karthik Bommisetty** | UIC MBA (Finance) + MS Business Analytics
 
+**[Explore the interactive dashboards on Tableau Public](https://public.tableau.com/app/profile/venkata.bommisetty/viz/AutoStockRiskEngine/RebalancingvsBuy-and-Hold)**
+
 This started as an Excel project in March 2026 (pivots, a dashboard, buy/sell calls). I rebuilt it in October around compound growth and drawdowns, and this version moves the whole thing into R so I could answer a harder question: if you actually tried to optimize a portfolio of these stocks, without knowing the future, would it beat just splitting the money five ways?
 
 Stocks: Tesla (TSLA), Toyota (TM), Honda (HMC), BMW (BMWKY), Geely (GELHY). Window: Tesla's IPO on 29 Jun 2010 to 13 Feb 2026, 3,932 trading days, dividend- and split-adjusted daily prices.
@@ -35,6 +37,8 @@ Rscript R/portfolio_engine.R      # writes tableau/*.csv and outputs/results_sum
 ```
 
 ## Tableau dashboards
+
+Live on [Tableau Public](https://public.tableau.com/app/profile/venkata.bommisetty/viz/AutoStockRiskEngine/RebalancingvsBuy-and-Hold). The packaged workbook is also in `tableau/`.
 
 1. **Rebalancing vs Buy-and-Hold:** growth of $10,000 on a log scale plus the drawdown chart, so you can see buy-and-hold pulling ahead in 2020 and then giving most of it back in 2022.
 2. **Optimization vs Equal Weight:** out-of-sample growth of all four strategies, return per unit of risk, worst drawdown, and the weights each optimizer picked every January (the max-Sharpe weights jump around a lot, min-variance mostly avoids Tesla).
